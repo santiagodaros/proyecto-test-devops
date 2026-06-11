@@ -20,6 +20,9 @@ jobs:
 
   helper-terraform:
     name: "Terraform Helper (fmt + lint + docs)"
+    # Permiso requerido para que el reusable workflow pueda hacer auto-commit
+    permissions:
+      contents: write
     uses: santiagodaros/devops-core-pipelines/.github/workflows/tf-development-helper.yml@main
     with:
       working-directory: "./terraform"
