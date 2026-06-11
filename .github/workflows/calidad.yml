@@ -1,0 +1,27 @@
+# =============================================================================
+# Archivo Conector: Calidad del Proyecto
+# Dispara los pipelines centrales de devops-core-pipelines ante cada push.
+# =============================================================================
+name: "Calidad del Proyecto"
+
+on:
+  push:
+    branches:
+      - "**"   # Reacciona ante cualquier push en cualquier rama
+
+jobs:
+  validar-scripts:
+    name: "Validar Scripts PowerShell"
+    uses: santiagodaros/devops-core-pipelines/.github/workflows/script-validation-base.yml@main
+    with:
+      working-directory: "./scripts"
+      fail-on-secrets: true
+    secrets: inherit
+
+  helper-terraform:
+    name: "Terraform Helper (fmt + lint + docs)"
+    uses: santiagodaros/devops-core-pipelines/.github/workflows/tf-development-helper.yml@main
+    with:
+      working-directory: "./terraform"
+      fail-on-tflint-errors: false
+    secrets: inherit
