@@ -9,6 +9,11 @@ on:
     branches:
       - "**"   # Reacciona ante cualquier push en cualquier rama
 
+# Cancela runs anteriores en la misma rama si llega un nuevo push
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validar-scripts:
     name: "Validar Scripts PowerShell"
